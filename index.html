@@ -51,7 +51,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--clip-a);outline-offset:3px;border-radius:4px}
-.wrap{max-width:1160px;margin:0 auto}
+.wrap{max-width:none;margin:0;padding-inline:clamp(0px,2.6vw,40px)}
 .label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .mark{background:var(--mark);color:var(--mark-ink);padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 h1,h2,h3{text-wrap:balance;margin:0}
@@ -423,6 +423,8 @@ footer span:last-child{background:linear-gradient(90deg,var(--clip-a),var(--pink
   .clip-note{display:block;position:absolute;left:calc(16% + 8px);top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
 }
 @media (max-width:560px){.shelf .swipe{display:block}}
+@media (min-width:1500px){.grid.tall{grid-template-columns:repeat(6,1fr)}.grid.land{grid-template-columns:repeat(4,1fr)}}
+@media (min-width:1900px){.grid.tall{grid-template-columns:repeat(7,1fr)}.grid.land{grid-template-columns:repeat(5,1fr)}}
 </style>
 
 </head>
@@ -612,7 +614,8 @@ const WORKS=[{"cat": "Podcasts", "title": "From Shimla to 30 Countries — Sneh 
 const ORDER=["Podcasts","Brand films","Reels","Events","Interviews","Ads"];
 const NOTES={"Podcasts":"GUESSS India podcast series with REVA University","Brand films":"Films for REVA's brand and programmes","Reels":"Campus life, festivals and student stories","Events":"Event highlights from campus","Interviews":"Students, faculty and guests","Ads":"Paid social and video ads"};
 const PHONE=matchMedia('(max-width:560px)');
-const LIMIT={tall:10,land:6};
+const WIDE=innerWidth>=1900?2:innerWidth>=1500?1:0;
+const LIMIT={tall:[10,12,14][WIDE],land:[6,8,10][WIDE]};
 const lim=(k,all)=>all||PHONE.matches?Infinity:LIMIT[k];
 const CC={"Podcasts":"var(--clip-a)","Brand films":"var(--clip-c)","Reels":"var(--pink)","Events":"var(--clip-b)","Interviews":"var(--sky)","Ads":"var(--lime)"};
 const fmt=d=>{if(!d)return'';const h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=String(d%60).padStart(2,'0');return h?`${h}:${String(m).padStart(2,'0')}:${s}`:`${m}:${s}`};
