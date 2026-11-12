@@ -316,6 +316,8 @@ body.pl-open{overflow:hidden}
 .app .lw{flex:none;width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 35%,var(--line))}
 .app .lw img{width:28px;height:28px;object-fit:contain;display:block}
 .app .lw img.mono{filter:var(--mono-filter)}
+.app .lw.full{background:none;box-shadow:none}
+.app .lw.full img{width:40px;height:40px;border-radius:9px;box-shadow:0 2px 8px -3px rgba(0,0,0,.35)}
 .ai-col .app{background:color-mix(in srgb,var(--c) 7%,var(--surface))}
 .kit > div:first-child .app:last-child{grid-column:1/-1;flex-direction:row;align-items:center}
 @media (min-width:861px) and (max-width:1100px){.kit{grid-template-columns:1fr 1fr}.kit > :last-child{grid-column:1/-1}}
@@ -865,10 +867,11 @@ document.querySelectorAll('[data-count]').forEach(el=>{
 })();
 /* Logos: drop official logo files into logos/ (e.g. logos/premiere-pro.svg or .png) and they replace the letter tiles */
 const MONO=new Set(['chatgpt','higgsfield','elevenlabs','kling']);
+const FULL=new Set(['premiere-pro','after-effects','davinci-resolve','photoshop','illustrator','coreldraw','flash']);
 document.querySelectorAll('.app[data-logo]').forEach(app=>{
   const i=app.querySelector('i'),slug=app.dataset.logo,exts=['png','svg'];
   const tryExt=k=>{if(k>=exts.length)return;const img=new Image();img.alt='';img.width=40;img.height=40;
-    img.onload=()=>{const lw=document.createElement('span');lw.className='lw';lw.style.cssText=i.getAttribute('style')||'';if(MONO.has(slug))img.className='mono';lw.append(img);i.replaceWith(lw)};img.onerror=()=>tryExt(k+1);img.src=`logos/${slug}.${exts[k]}`};
+    img.onload=()=>{const lw=document.createElement('span');lw.className='lw';lw.style.cssText=i.getAttribute('style')||'';if(MONO.has(slug))img.className='mono';if(FULL.has(slug))lw.classList.add('full');lw.append(img);i.replaceWith(lw)};img.onerror=()=>tryExt(k+1);img.src=`logos/${slug}.${exts[k]}`};
   tryExt(0);
 });
 /* Player controls */
