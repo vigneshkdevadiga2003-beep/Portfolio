@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style>
+<title>K Vignesh Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="K Vignesh — video editor, graphic designer and content creator in Bengaluru. Podcasts, reels, YouTube edits, thumbnails and posters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an editing bay. Hero = a thumbnail on the canvas, career = clips on a timeline drawn to scale, work = a thumbnail grid. */
+:root{
+  --bg:#ECEEF3;        /* cool grey canvas */
+  --surface:#FFFFFF;
+  --ink:#15172C;       /* deep indigo ink */
+  --muted:#5A5F78;
+  --line:#D3D7E2;
+  --mark:#FFCC1A;      /* thumbnail yellow, used as a fill behind ink */
+  --mark-ink:#15172C;
+  --clip-a:#5B4BDB;    /* violet clip */
+  --clip-b:#0F8F8B;    /* teal clip */
+  --clip-c:#C2410C;    /* amber clip */
+  --rec:#E0313A;
+  --wa:#25D366;      /* WhatsApp green */
+  --pink:#D9307E;--sky:#1A7FD6;--lime:#5E9E12;
+  --on-clip:#FFFFFF;
+  --display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1120;--surface:#181B2E;--ink:#ECEEF7;--muted:#9AA0BA;--line:#2A2E47;
+  --mark:#FFD23F;--mark-ink:#15172C;--clip-a:#7466F0;--clip-b:#14A8A3;--clip-c:#E2621F;--rec:#FF4D55;--on-clip:#FFFFFF;
+  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1120;--surface:#181B2E;--ink:#ECEEF7;--muted:#9AA0BA;--line:#2A2E47;
+  --mark:#FFD23F;--mark-ink:#15172C;--clip-a:#7466F0;--clip-b:#14A8A3;--clip-c:#E2621F;--rec:#FF4D55;--on-clip:#FFFFFF;
+  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--clip-a);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1160px;margin:0 auto}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mark{background:var(--mark);color:var(--mark-ink);padding:0 .18em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+h1,h2,h3{text-wrap:balance;margin:0}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,56px);line-height:1;letter-spacing:.01em;text-transform:uppercase}
+p{margin:0}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:var(--display);font-size:22px;letter-spacing:.03em;text-decoration:none;text-transform:uppercase}
+nav{display:flex;gap:22px;flex-wrap:wrap}
+nav a{text-decoration:none;font-weight:600;font-size:14px;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.avail{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;border:1px solid var(--line);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--rec);animation:blink 1.6s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+@media (max-width:760px){
+  .bar{flex-wrap:wrap;row-gap:8px;padding-block:10px 0}
+  nav{order:3;width:100%;flex-wrap:nowrap;overflow-x:auto;gap:4px;scrollbar-width:none;margin-inline:-4px}
+  nav::-webkit-scrollbar{display:none}
+  nav a{flex:none;padding:10px 12px;font-size:14px;border-bottom:2px solid transparent}
+  nav a.on{color:var(--ink);border-bottom-color:var(--pink)}
+}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(36px,7vw,80px) 28px}
+.hero > *{min-width:0}
+.name{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(60px,10vw,128px);line-height:.88;letter-spacing:.005em}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.roles span{font-weight:700;font-size:14px;border:1.5px solid var(--ink);padding:5px 12px;border-radius:999px}
+.lede{margin-top:22px;max-width:52ch;color:var(--muted);font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;text-decoration:none;padding:12px 18px;border-radius:var(--r);border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;font-family:inherit}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn:hover{transform:translateY(-1px)}
+
+/* hero thumbnail */
+.thumb{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:14px;overflow:hidden;background:
+  radial-gradient(120% 90% at 85% 15%,var(--clip-c),transparent 55%),
+  linear-gradient(135deg,var(--clip-a),#1c1640 70%);
+  box-shadow:0 24px 50px -24px rgba(21,23,44,.55);transform:rotate(-1.5deg)}
+.thumb .t-text{position:absolute;left:6%;top:12%;right:30%;font-family:var(--display);text-transform:uppercase;color:#fff;font-size:clamp(28px,4.4vw,52px);line-height:.95;text-shadow:0 3px 0 rgba(0,0,0,.35)}
+.thumb .t-text .mark{color:var(--mark-ink);text-shadow:none}
+.thumb .t-face{position:absolute;right:5%;bottom:0;width:30%;aspect-ratio:3/4;border-radius:50% 50% 0 0;background:
+  radial-gradient(circle at 50% 32%,#f4c9a0 0 22%,transparent 23%),
+  radial-gradient(ellipse at 50% 100%,#111325 0 58%,transparent 59%);opacity:.95}
+.thumb .t-time{position:absolute;right:3%;bottom:6%;font-family:var(--mono);font-size:12px;background:rgba(0,0,0,.8);color:#fff;padding:2px 6px;border-radius:4px}
+.thumb .t-prog{position:absolute;left:0;right:0;bottom:0;height:5px;background:rgba(255,255,255,.25)}
+.thumb .t-prog i{display:block;height:100%;width:68%;background:var(--rec)}
+.thumb-cap{display:flex;gap:12px;margin-top:16px;align-items:flex-start}
+.avatar{flex:none;width:38px;height:38px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--display);font-size:16px}
+.thumb-cap b{display:block;font-size:15px;line-height:1.35}
+.thumb-cap span{font-size:13px;color:var(--muted)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.thumb{transform:none}}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line);margin-top:40px}
+.stat{padding:22px 18px;border-left:1px solid var(--line);min-width:0}
+.stat:first-child{border-left:0;padding-left:0}
+.stat strong{display:block;font-family:var(--display);font-weight:400;font-size:clamp(36px,5vw,54px);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{display:block;margin-top:8px;font-size:14px;color:var(--muted);max-width:24ch}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(3){border-left:0;padding-left:0}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+
+section.block{padding-block:clamp(56px,8vw,96px) 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.head p{color:var(--muted);max-width:46ch}
+
+/* work */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{font:600 14px var(--body);padding:7px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip span{font-family:var(--mono);font-size:12px;opacity:.65;margin-left:4px}
+.shelf{margin-top:44px}
+.shelf:first-child{margin-top:8px}
+.shelf-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:18px}
+.shelf-head h3{font-family:var(--display);font-weight:400;font-size:28px;text-transform:uppercase;letter-spacing:.01em}
+.grid{display:grid;gap:22px 18px}
+.grid + .grid{margin-top:22px}
+.grid.land{grid-template-columns:repeat(3,1fr)}
+.grid.tall{grid-template-columns:repeat(5,1fr)}
+@media (max-width:960px){.grid.land{grid-template-columns:repeat(2,1fr)}.grid.tall{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.grid.land{grid-template-columns:1fr}.grid.tall{grid-template-columns:repeat(2,1fr);gap:18px 12px}}
+.card{display:flex;flex-direction:column;gap:10px;min-width:0;text-decoration:none;color:var(--ink)}
+.frame{position:relative;border-radius:var(--r);overflow:hidden;background:#0D0F1C;max-width:100%;transition:transform .2s}
+.land .frame{aspect-ratio:16/9}
+.tall .frame{aspect-ratio:9/16}
+.card:hover .frame,.card:focus-visible .frame{transform:translateY(-3px)}
+.frame img,.frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.frame video{opacity:0;transition:opacity .25s}
+.frame.playing video{opacity:1}
+.badge{position:absolute;right:8px;bottom:8px;font-family:var(--mono);font-size:11px;background:rgba(0,0,0,.8);color:#fff;padding:2px 6px;border-radius:4px;font-variant-numeric:tabular-nums}
+.play{position:absolute;left:8px;bottom:8px;width:30px;height:30px;border-radius:50%;background:var(--mark);display:grid;place-items:center;opacity:0;transform:scale(.85);transition:.2s}
+.play::before{content:"";border-left:10px solid var(--mark-ink);border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:3px}
+.card:hover .play,.card:focus-visible .play{opacity:1;transform:none}
+.card h4{margin:0;font-size:15px;line-height:1.35;font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.card .meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.channel{display:flex;flex-direction:column;justify-content:space-between;gap:16px;aspect-ratio:16/9;max-width:100%;border-radius:var(--r);padding:20px;background:var(--ink);color:var(--bg);text-decoration:none}
+.channel b{font-family:var(--display);font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1;text-transform:uppercase}
+.channel span{font-size:14px;opacity:.8}
+.channel em{font-style:normal;align-self:flex-start;background:var(--mark);color:var(--mark-ink);font-weight:700;font-size:14px;padding:6px 12px;border-radius:8px}
+.more-btn{margin-top:20px}
+/* motion */
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+@keyframes wipe{from{clip-path:inset(0 0 100% 0);transform:translateY(30%)}to{clip-path:inset(0 0 0 0);transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.6)}70%{transform:scale(1.06)}100%{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-30px) rotate(4deg) scale(.94)}to{opacity:1;transform:rotate(-1.5deg)}}
+@keyframes sweep{from{background-size:0% 100%}to{background-size:100% 100%}}
+@keyframes slide{to{transform:translateX(-50%)}}
+.name .ln{display:block;animation:wipe .9s cubic-bezier(.2,.8,.2,1) both}
+.name .ln:nth-child(2){animation-delay:.12s}
+.roles span{animation:pop .5s cubic-bezier(.2,.8,.2,1) both}
+.roles span:nth-child(1){animation-delay:.45s}.roles span:nth-child(2){animation-delay:.55s}.roles span:nth-child(3){animation-delay:.65s}
+.hero .label,.lede,.cta{animation:rise .7s .7s cubic-bezier(.2,.8,.2,1) both}
+.lede{animation-delay:.8s}.cta{animation-delay:.9s}
+.thumb{animation:drop 1s .35s cubic-bezier(.2,.8,.2,1) both}
+.thumb-cap{animation:rise .7s 1s both}
+@media (max-width:860px){@keyframes drop{from{opacity:0;transform:translateY(-30px) scale(.94)}to{opacity:1;transform:none}}}
+.mark{background-image:linear-gradient(var(--mark),var(--mark));background-color:transparent;background-repeat:no-repeat;background-size:100% 100%}
+.rv-in .mark,.hero .mark{animation:sweep .8s .3s cubic-bezier(.2,.8,.2,1) both}
+.hero .mark{animation-delay:1.3s}
+.rv-wait{opacity:.15;transform:translateY(34px)}
+.rv-in{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i,0) * 60ms)}
+.thumb .reel{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.thumb .reel.on{opacity:1}
+.thumb .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(15,12,40,.85) 0%,rgba(15,12,40,.35) 60%,rgba(15,12,40,.1));opacity:0;transition:opacity .8s}
+.thumb.live .shade{opacity:1}
+.thumb.live .t-face{opacity:0;transition:opacity .6s}
+.thumb .t-prog i{transition:width .2s linear}
+.thumb .t-text,.thumb .t-time,.thumb .t-prog,.thumb .t-live{z-index:2}
+.thumb .t-live{position:absolute;left:6%;bottom:12%;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:#fff;opacity:0;transition:opacity .6s}
+.thumb.live .t-live{opacity:.9}
+.thumb .t-live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--rec)}
+.ticker{overflow:hidden;border-block:1px solid var(--line);margin-top:0;padding-block:16px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{font-family:var(--display);font-size:clamp(22px,3vw,34px);text-transform:uppercase;white-space:nowrap;padding-inline:22px;display:flex;align-items:center;gap:44px}
+.ticker span::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--mark);display:block}
+.stats{border-top:0}
+.track .clip{transform-origin:left center}
+.track-wrap.rv-wait .clip{transform:scaleX(0)}
+.track-wrap.rv-in .clip{transform:none;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.track-wrap.rv-in .clip:nth-of-type(2){transition-delay:.35s}
+.track-wrap.rv-wait .playhead{left:0!important}
+.track-wrap.rv-in .playhead{transition:left 2.2s .2s cubic-bezier(.4,0,.2,1)}
+.frame.auto video{opacity:1}
+header{transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 24px -18px rgba(21,23,44,.5)}
+.btn{transition:transform .2s,background .2s,color .2s}
+.btn:not(.primary):hover{background:var(--ink);color:var(--bg)}
+@media (prefers-reduced-motion:reduce){.rv-wait{opacity:1;transform:none}.track-wrap.rv-wait .clip{transform:none}.ticker-track{animation:none}}
+
+/* whatsapp */
+.wa-icon{width:20px;height:20px;flex:none}
+.wa-block{margin-top:36px;display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(20px,4vw,48px);background:color-mix(in srgb,var(--bg) 8%,transparent);border:1px solid color-mix(in srgb,var(--bg) 18%,transparent);border-radius:14px;padding:clamp(20px,3vw,32px)}
+@media (max-width:860px){.wa-block{grid-template-columns:1fr}}
+.wa-block > *{min-width:0}
+.wa-block h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,36px);text-transform:uppercase;line-height:1}
+.wa-block p{opacity:.8;margin-top:10px;max-width:40ch}
+.wa-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.wa-form .full{grid-column:1/-1}
+@media (max-width:560px){.wa-form{grid-template-columns:1fr}}
+.wa-form label{display:grid;gap:6px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.wa-form input,.wa-form select,.wa-form textarea{font:500 15px var(--body);color:var(--bg);background:transparent;border:0;border-bottom:1.5px solid color-mix(in srgb,var(--bg) 35%,transparent);padding:8px 2px;border-radius:0;width:100%;text-transform:none;letter-spacing:0}
+.wa-form select option{color:#15172C}
+.wa-form textarea{resize:vertical;min-height:80px}
+.wa-form input:focus,.wa-form select:focus,.wa-form textarea:focus{outline:none;border-bottom-color:var(--wa)}
+.wa-send{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--wa);color:#0B2614;font-weight:700;font-size:15px;text-decoration:none;padding:13px 20px;border-radius:10px;justify-self:start}
+.wa-send:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.wa-note{font-size:13px;opacity:.7}
+.wa-fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;align-items:center;gap:10px;background:var(--wa);color:#0B2614;text-decoration:none;font-weight:700;font-size:14px;padding:12px 16px 12px 14px;border-radius:999px;box-shadow:0 12px 30px -10px rgba(0,0,0,.45);animation:rise .6s 2s both}
+.wa-fab .wa-icon{width:24px;height:24px}
+.wa-fab::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:0 0 0 0 var(--wa);animation:ping 2.4s 3s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--wa) 55%,transparent)}80%,100%{box-shadow:0 0 0 16px transparent}}
+@media (max-width:560px){.wa-fab span{display:none}.wa-fab{padding:14px}}
+
+/* timeline */
+.track-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px 18px}
+.track{min-width:620px;position:relative}
+.ruler{display:grid;grid-template-columns:repeat(6,1fr);font-family:var(--mono);font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:6px}
+.ruler span{border-left:1px solid var(--line);padding-left:6px}
+.lane{position:relative;height:56px;margin-top:10px}
+.lane-name{position:absolute;left:-2px;top:-17px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.clip{position:absolute;top:0;height:100%;border-radius:6px;color:var(--on-clip);padding:8px 10px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;line-height:1.25}
+.clip b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clip span{font-family:var(--mono);font-size:11px;opacity:.9;white-space:nowrap}
+.playhead{position:absolute;top:22px;bottom:0;width:2px;background:var(--rec)}
+.playhead::before{content:"";position:absolute;top:-6px;left:-6px;border:7px solid transparent;border-top-color:var(--rec)}
+.jobs{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:26px}
+@media (max-width:760px){.jobs{grid-template-columns:1fr}}
+.job{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;min-width:0}
+.job .label{display:flex;justify-content:space-between;gap:12px}
+.job h3{font-size:22px;margin-top:10px}
+.job .role{font-weight:600;color:var(--muted);margin-top:2px}
+.job ul{margin:16px 0 0;padding-left:18px;display:grid;gap:8px}
+.job li{max-width:62ch}
+
+/* skills */
+.kit{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:clamp(24px,4vw,48px)}
+.kit .apps{grid-template-columns:repeat(2,1fr)}
+.app img.logo{width:40px;height:40px;object-fit:contain;border-radius:8px}
+.ai-col .app{background:color-mix(in srgb,var(--c) 7%,var(--surface))}
+.kit > div:first-child .app:last-child{grid-column:1/-1;flex-direction:row;align-items:center}
+@media (min-width:861px) and (max-width:1100px){.kit{grid-template-columns:1fr 1fr}.kit > :last-child{grid-column:1/-1}}
+@media (max-width:860px){.kit{grid-template-columns:1fr}}
+.kit > *{min-width:0}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:420px){.apps{grid-template-columns:repeat(2,1fr)}}
+.app{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.app i{font-style:normal;width:40px;height:40px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-size:18px;color:var(--on-clip);background:var(--c)}
+.app b{font-size:14px;line-height:1.3}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{font-size:14px;font-weight:600;padding:7px 12px;border-radius:8px;background:var(--surface);border:1px solid var(--line)}
+.sub{margin:26px 0 12px}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:28px}
+.facts div{border-top:2px solid var(--ink);padding-top:12px;min-width:0}
+.facts b{display:block;font-size:17px;margin-top:6px;line-height:1.35}
+.facts p{color:var(--muted);font-size:14px;margin-top:4px}
+
+/* contact */
+.contact{margin-top:clamp(56px,8vw,96px);background:var(--ink);color:var(--bg);border-radius:18px;padding:clamp(28px,5vw,56px)}
+.contact h2{font-size:clamp(44px,7vw,86px)}
+.contact .label{color:inherit;opacity:.7}
+.c-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,5vw,56px);margin-top:28px}
+@media (max-width:860px){.c-grid{grid-template-columns:1fr}}
+.c-grid > *{min-width:0}
+.c-intro{max-width:50ch;opacity:.85;font-size:17px}
+.c-list{display:grid;gap:14px}
+.c-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid color-mix(in srgb,var(--bg) 22%,transparent);padding-bottom:12px}
+.c-row div{min-width:0}
+.c-row b{display:block;font-size:18px;overflow-wrap:anywhere;user-select:all}
+.copy{font:600 13px var(--body);background:var(--mark);color:var(--mark-ink);border:0;border-radius:8px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+.prefs{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.prefs span{font-size:14px;font-weight:600;border:1px solid color-mix(in srgb,var(--bg) 35%,transparent);padding:6px 12px;border-radius:999px}
+footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-block:28px 96px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+/* colour */
+.hero{position:relative;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-40px 0 0;z-index:-1;pointer-events:none;background:
+  radial-gradient(38% 50% at 12% 30%,color-mix(in srgb,var(--clip-a) 22%,transparent),transparent 70%),
+  radial-gradient(30% 45% at 55% 85%,color-mix(in srgb,var(--pink) 18%,transparent),transparent 70%),
+  radial-gradient(35% 50% at 90% 20%,color-mix(in srgb,var(--clip-b) 20%,transparent),transparent 70%)}
+.name .ln:nth-child(2){background:linear-gradient(90deg,var(--clip-a),var(--pink) 50%,var(--clip-c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.roles span{border:0;color:#fff}
+.roles span:nth-child(1){background:var(--clip-a)}.roles span:nth-child(2){background:var(--pink)}.roles span:nth-child(3){background:var(--clip-b)}
+.ticker{background:var(--mark);border:0;mask-image:none;-webkit-mask-image:none}
+.ticker span{color:var(--mark-ink)}
+.ticker span:nth-child(4n+1)::after{background:var(--clip-a)}.ticker span:nth-child(4n+2)::after{background:var(--pink)}.ticker span:nth-child(4n+3)::after{background:var(--clip-b)}.ticker span:nth-child(4n)::after{background:var(--clip-c)}
+.stat:nth-child(1) strong{color:var(--clip-a)}.stat:nth-child(2) strong{color:var(--clip-b)}.stat:nth-child(3) strong{color:var(--pink)}.stat:nth-child(4) strong{color:var(--clip-c)}
+.mark.m-pink{background-image:linear-gradient(var(--pink),var(--pink));color:#fff}
+.mark.m-teal{background-image:linear-gradient(var(--clip-b),var(--clip-b));color:#fff}
+.mark.m-lime{background-image:linear-gradient(var(--wa),var(--wa));color:#0B2614}
+.chip::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cc,var(--ink));margin-right:7px;vertical-align:1px}
+.chip[aria-pressed="true"]{background:var(--cc,var(--ink));border-color:var(--cc,var(--ink));color:#fff}
+.chip[aria-pressed="true"]::before{background:#fff}
+.shelf-head{border-bottom:3px solid var(--cc)}
+.shelf-head h3{display:flex;align-items:center;gap:12px}
+.shelf-head h3::before{content:"";width:16px;height:16px;border-radius:4px;background:var(--cc)}
+.shelf .frame{outline:3px solid transparent;outline-offset:2px;transition:transform .2s,outline-color .2s}
+.shelf .card:hover .frame,.shelf .card:focus-visible .frame{outline-color:var(--cc)}
+.shelf .play{background:var(--cc)}
+.shelf .play::before{border-left-color:#fff}
+.shelf .card .meta{color:var(--cc)}
+#experience{position:relative}
+.track-wrap{background:linear-gradient(180deg,color-mix(in srgb,var(--clip-a) 7%,var(--surface)),var(--surface))}
+.job{border-top:5px solid var(--jc,var(--clip-a))}
+.job:nth-child(2){--jc:var(--clip-b)}
+.job .label span:first-child{color:var(--jc,var(--clip-a));font-weight:500}
+.job li::marker{color:var(--jc,var(--clip-a))}
+#skills{box-shadow:0 0 0 100vmax color-mix(in srgb,var(--clip-b) 9%,var(--bg));clip-path:inset(0 -100vmax);background:color-mix(in srgb,var(--clip-b) 9%,var(--bg));padding-bottom:clamp(48px,7vw,80px);margin-top:clamp(56px,8vw,96px);padding-top:clamp(48px,7vw,80px)}
+.tags span:nth-child(6n+1){border-color:color-mix(in srgb,var(--clip-a) 45%,var(--line));background:color-mix(in srgb,var(--clip-a) 10%,var(--surface))}
+.tags span:nth-child(6n+2){border-color:color-mix(in srgb,var(--pink) 45%,var(--line));background:color-mix(in srgb,var(--pink) 10%,var(--surface))}
+.tags span:nth-child(6n+3){border-color:color-mix(in srgb,var(--clip-b) 45%,var(--line));background:color-mix(in srgb,var(--clip-b) 10%,var(--surface))}
+.tags span:nth-child(6n+4){border-color:color-mix(in srgb,var(--clip-c) 45%,var(--line));background:color-mix(in srgb,var(--clip-c) 10%,var(--surface))}
+.tags span:nth-child(6n+5){border-color:color-mix(in srgb,var(--sky) 45%,var(--line));background:color-mix(in srgb,var(--sky) 10%,var(--surface))}
+.tags span:nth-child(6n){border-color:color-mix(in srgb,var(--lime) 45%,var(--line));background:color-mix(in srgb,var(--lime) 10%,var(--surface))}
+.app{border-color:color-mix(in srgb,var(--c) 30%,var(--line))}
+.facts div:nth-child(1){border-top-color:var(--clip-a)}.facts div:nth-child(2){border-top-color:var(--pink)}
+.contact{position:relative;overflow:hidden;isolation:isolate;background:#16123A;color:#F1F0FA;margin-top:clamp(56px,8vw,96px)}
+.contact::before{content:"";position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(45% 60% at 100% 0%,color-mix(in srgb,var(--pink) 45%,transparent),transparent 70%),
+  radial-gradient(40% 60% at 0% 100%,color-mix(in srgb,var(--clip-b) 40%,transparent),transparent 70%),
+  radial-gradient(35% 40% at 60% 55%,color-mix(in srgb,var(--clip-a) 35%,transparent),transparent 70%)}
+.contact .c-row{border-bottom-color:rgba(241,240,250,.2)}
+.contact .prefs span{border-color:rgba(241,240,250,.35)}
+.contact .wa-block{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.contact .wa-form input,.contact .wa-form select,.contact .wa-form textarea{color:#F1F0FA;border-bottom-color:rgba(241,240,250,.35)}
+.contact .wa-form select{color-scheme:dark}
+.contact .copy{background:var(--mark)}
+footer span:last-child{background:linear-gradient(90deg,var(--clip-a),var(--pink),var(--clip-c));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* phones: desktop layout above is unchanged */
+@media (max-width:560px){
+  body{font-size:15px}
+  .hero{padding-block:24px 8px;gap:28px}
+  .name{font-size:clamp(56px,19vw,84px)}
+  .roles{gap:6px;margin-top:16px}
+  .roles span{font-size:13px;padding:5px 10px}
+  .lede{font-size:16px;margin-top:16px}
+  .cta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+  .cta .btn{justify-content:center;padding:13px 12px;min-height:46px}
+  .cta .btn:last-child{grid-column:1/-1}
+  .thumb .t-text{font-size:clamp(24px,8.4vw,34px);right:26%}
+  .thumb-cap b{font-size:14px}
+  .ticker{padding-block:12px}
+  .ticker span{font-size:20px;padding-inline:14px;gap:28px}
+  .stats{margin-top:0}
+  .stat{padding:16px 12px}
+  .stat:nth-child(odd){padding-left:0}
+  .stat strong{font-size:34px}
+  .stat span{font-size:13px}
+  section.block{padding-block:48px 0}
+  h2{font-size:clamp(32px,10vw,42px)}
+  .head{margin-bottom:18px;gap:10px}
+  .head p{font-size:14px}
+  /* filters: one swipeable row */
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));scrollbar-width:none;padding-bottom:4px}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;padding:10px 14px}
+  /* work: each shelf becomes a swipeable row */
+  .shelf{margin-top:34px}
+  .shelf-head{flex-direction:column;align-items:flex-start;gap:4px;margin-bottom:14px}
+  .shelf-head h3{font-size:24px}
+  .shelf-head .label{font-size:11px}
+  .grid.tall,.grid.land{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));scroll-padding-inline:max(16px,env(safe-area-inset-left,0px));scrollbar-width:none;padding-bottom:6px}
+  .grid.tall::-webkit-scrollbar,.grid.land::-webkit-scrollbar{display:none}
+  .grid + .grid{margin-top:18px}
+  .grid.tall .card{flex:0 0 44%;scroll-snap-align:start}
+  .grid.land .card,.grid.land .channel{flex:0 0 84%;scroll-snap-align:start}
+  .card h4{font-size:14px}
+  .play{opacity:1;transform:none;width:26px;height:26px}
+  .more-btn{display:none}
+  .swipe{display:block;margin-top:6px;font-family:var(--mono);font-size:11px;color:var(--cc,var(--muted))}
+  /* timeline fits the screen */
+  .track-wrap{padding:16px 12px 14px}
+  .track{min-width:0}
+  .ruler{font-size:10px}
+  .ruler span{padding-left:3px}
+  .lane{height:50px}
+  .clip{padding:6px 7px}
+  .clip b{font-size:12px}
+  .clip span{font-size:9.5px;overflow:hidden;text-overflow:ellipsis}
+  .jobs{gap:16px;margin-top:18px}
+  .job{padding:20px 18px}
+  .job h3{font-size:20px}
+  .job ul{padding-left:16px;font-size:14.5px}
+  #skills{padding-block:44px}
+  .kit .apps{grid-template-columns:repeat(3,1fr);gap:8px}
+  .app{padding:10px;gap:8px}
+  .app i{width:34px;height:34px;font-size:15px}
+  .app b{font-size:12px}
+  .tags{gap:6px}
+  .tags span{font-size:13px;padding:6px 10px}
+  .facts{grid-template-columns:1fr;gap:16px}
+  .contact{border-radius:14px;padding:26px 18px;margin-top:48px}
+  .contact h2{font-size:clamp(40px,12vw,52px)}
+  .c-intro{font-size:15px}
+  .c-row b{font-size:16px}
+  .copy{padding:10px 14px}
+  .wa-block{padding:20px 16px;margin-top:26px}
+  .wa-form input,.wa-form select,.wa-form textarea{font-size:16px}
+  .wa-send{justify-self:stretch;min-height:50px}
+  footer{flex-direction:column;padding-block:22px 92px}
+  #work,#experience,#skills,#contact{scroll-margin-top:104px}
+}
+.swipe{display:none}
+.on-phone,.clip-note{display:none}
+@media (max-width:560px){
+  .on-desk{display:none}.on-phone{display:inline}
+  .clip-sm b,.clip-sm span{display:none}
+  .clip-note{display:block;position:absolute;left:calc(16% + 8px);top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap}
+}
+@media (max-width:560px){.shelf .swipe{display:block}}
+</style>
+
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top">K Vignesh</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+    </nav>
+    <span class="avail"><span class="dot" aria-hidden="true"></span>Open to work</span>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <section class="hero">
+    <div>
+      <p class="label">Bengaluru, India · 4+ years</p>
+      <h1 class="name"><span class="ln">K</span><span class="ln">Vignesh</span></h1>
+      <div class="roles"><span>Video Editor</span><span>Graphic Designer</span><span>Content Creator</span></div>
+      <p class="lede">I edit podcasts, reels and YouTube videos and design the thumbnails and posters that get them watched. I take projects from the first concept to the final export, with an eye on composition, typography and colour.</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn" href="#contact">Hire me</a>
+        <a class="btn" href="https://wa.me/918792035603?text=Hi%20Vignesh%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener noreferrer"><svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A7.7 7.7 0 1 1 12 19.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>WhatsApp</a>
+      </div>
+    </div>
+    <div>
+      <div class="thumb" role="img" aria-label="A YouTube-style thumbnail reading: 27 podcasts, 50 plus reels">
+        <div class="t-text">27 podcasts.<br><span class="mark">50+ reels.</span><br>One editor.</div>
+        <video class="reel" muted playsinline preload="none" aria-hidden="true"></video><video class="reel" muted playsinline preload="none" aria-hidden="true"></video><div class="shade"></div><div class="t-face"></div><div class="t-live" id="t-live">Showreel</div>
+        <div class="t-prog"><i></i></div>
+        <div class="t-time">4+ YRS</div>
+      </div>
+      <div class="thumb-cap">
+        <div class="avatar" aria-hidden="true">KV</div>
+        <div><b>Showreel: podcasts, reels and design for REVA University and Masth Maga</b><span>K Vignesh · 2021 – 2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-track"><span>Podcast editing</span><span>Instagram reels</span><span>YouTube thumbnails</span><span>Colour grading</span><span>Motion graphics</span><span>Poster design</span><span>Brand films</span><span>Videography</span><span>Podcast editing</span><span>Instagram reels</span><span>YouTube thumbnails</span><span>Colour grading</span><span>Motion graphics</span><span>Poster design</span><span>Brand films</span><span>Videography</span></div></div>
+  <div class="stats">
+    <div class="stat"><strong data-count="4" data-suffix="+">4+</strong><span>years editing and designing professionally</span></div>
+    <div class="stat"><strong data-count="27">27</strong><span>podcasts edited, each two to three hours long</span></div>
+    <div class="stat"><strong data-count="50" data-suffix="+">50+</strong><span>social media reels produced at REVA University</span></div>
+    <div class="stat"><strong data-count="29.5" data-suffix="K" data-dec="1">29.5K</strong><span>REVA's social following, up from about 9.5K while I was on the content team</span></div>
+  </div>
+
+  <section class="block" id="work">
+    <div class="head">
+      <div><p class="label">Selected work · 94 videos</p><h2>Edits and <span class="mark">designs</span></h2></div>
+      <p>Podcasts, brand films, reels, events, interviews and ads for REVA University. <span class="on-desk">Hover a thumbnail for a preview, click to watch the full video.</span><span class="on-phone">Thumbnails preview as you scroll. Tap one to watch the full video.</span></p>
+    </div>
+    <div class="chips" role="group" aria-label="Filter work" id="chips"></div>
+    <div id="shelves"></div>
+  </section>
+
+  <section class="block" id="experience">
+    <div class="head">
+      <div><p class="label">Experience</p><h2>On the <span class="mark m-teal">timeline</span></h2></div>
+      <p>Each clip is drawn to scale, 2021 to 2026.</p>
+    </div>
+    <div class="track-wrap">
+      <div class="track" aria-label="Career timeline from 2021 to 2026">
+        <div class="ruler"><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+        <div class="lane" style="margin-top:30px">
+          <span class="lane-name">V1 · WORK</span>
+          <div class="clip" style="left:0;width:66.6%;background:var(--clip-b)"><b>Masth Maga.com</b><span>Video editor &amp; thumbnail designer</span></div>
+          <div class="clip" style="left:67.2%;width:32.8%;background:var(--clip-a)"><b>REVA University</b><span>Video editor · full-time</span></div>
+        </div>
+        <div class="lane" style="margin-top:28px;height:44px">
+          <span class="lane-name">A1 · STUDY</span>
+          <div class="clip clip-sm" style="left:0;width:16%;background:var(--clip-c)"><b>Dream Zone</b><span>Diploma · 2021</span></div><span class="clip-note">Dream Zone · Diploma 2021</span>
+        </div>
+        <div class="playhead" style="left:99.4%"></div>
+      </div>
+    </div>
+    <div class="jobs">
+      <article class="job">
+        <p class="label"><span>2025 – 2026</span><span>Full-time</span></p>
+        <h3>REVA University</h3>
+        <p class="role">Video Editor</p>
+        <ul>
+          <li>Edited 27 podcasts of two to three hours each and produced more than 50 social media reels.</li>
+          <li>Handled videography, photography, thumbnails, posters and promotional videos, short-form and long-form.</li>
+          <li>Shot and edited an entrepreneurship collaboration video with REVA University and GUESSS India.</li>
+          <li>Contributed content while the university's following grew from about 9,500 to 29,500.</li>
+        </ul>
+      </article>
+      <article class="job">
+        <p class="label"><span>2021 – 2025</span><span>4 years</span></p>
+        <h3>Masth Maga.com</h3>
+        <p class="role">Video Editor &amp; Thumbnail Designer</p>
+        <ul>
+          <li>Edited YouTube and digital media content, including vlogs and creator videos.</li>
+          <li>Designed thumbnails with strong composition, bold typography, colour and contrast.</li>
+          <li>Kept a consistent visual style across channels and online audiences.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="skills">
+    <div class="head">
+      <div><p class="label">Skills</p><h2>The <span class="mark m-pink">kit</span></h2></div>
+    </div>
+    <div class="kit">
+      <div>
+        <p class="label sub" style="margin-top:0">Software</p>
+        <div class="apps">
+          <div class="app" data-logo="premiere-pro"><i style="--c:#2B1C78">Pr</i><b>Adobe Premiere Pro</b></div>
+          <div class="app" data-logo="after-effects"><i style="--c:#3A1A6B">Ae</i><b>Adobe After Effects</b></div><div class="app" data-logo="davinci-resolve"><i style="--c:#2E3440">Dr</i><b>DaVinci Resolve</b></div>
+          <div class="app" data-logo="photoshop"><i style="--c:#0B3B66">Ps</i><b>Adobe Photoshop</b></div>
+          <div class="app" data-logo="illustrator"><i style="--c:#7A3A00">Ai</i><b>Adobe Illustrator</b></div>
+          <div class="app" data-logo="coreldraw"><i style="--c:#1D6B3A">Cd</i><b>CorelDRAW</b></div>
+          <div class="app" data-logo="flash"><i style="--c:#8A1C24">Fl</i><b>Adobe Flash</b></div>
+        </div>
+      </div>
+      <div class="ai-col">
+        <p class="label sub" style="margin-top:0">AI tools</p>
+        <div class="apps">
+          <div class="app" data-logo="chatgpt"><i style="--c:#0E7A5F">Cg</i><b>ChatGPT</b></div>
+          <div class="app" data-logo="claude"><i style="--c:#B4572E">Cl</i><b>Claude</b></div>
+          <div class="app" data-logo="gemini"><i style="--c:#2F5BD3">Ge</i><b>Gemini</b></div>
+          <div class="app" data-logo="higgsfield"><i style="--c:#4D6B00">Hf</i><b>Higgsfield</b></div>
+          <div class="app" data-logo="elevenlabs"><i style="--c:#1F1F2E">11</i><b>ElevenLabs</b></div>
+          <div class="app" data-logo="kling"><i style="--c:#6B2FA8">Kl</i><b>Kling</b></div>
+        </div>
+      </div>
+      <div>
+        <p class="label sub" style="margin-top:0">Editing</p>
+        <div class="tags"><span>Cinematic editing</span><span>Podcast editing</span><span>YouTube editing</span><span>Instagram reels</span><span>Short-form</span><span>Long-form</span><span>Colour correction</span><span>Colour grading</span><span>Motion graphics</span></div>
+        <p class="label sub">Design &amp; camera</p>
+        <div class="tags"><span>YouTube thumbnails</span><span>Poster design</span><span>Typography</span><span>Photo editing</span><span>Graphic design</span><span>Videography</span><span>Photography</span><span>Visual storytelling</span></div>
+        <div class="facts">
+          <div><p class="label">Education</p><b>Diploma in Professional 2D Graphic and Web Designer and Video Editor</b><p>Dream Zone · 2021</p></div>
+          <div><p class="label">Languages</p><b>Kannada, English, Hindi</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <p class="label">Contact</p>
+    <h2>Let's make<br>the <span class="mark">next cut</span></h2>
+    <div class="c-grid">
+      <div>
+        <p class="c-intro">Looking for full-time roles as a video editor, senior video editor, graphic designer, multimedia designer or content editor. Open to remote work and to moving abroad.</p>
+        <div class="prefs"><span>Full-time</span><span>Remote</span><span>India</span><span>UAE · Dubai</span><span>International</span></div>
+      </div>
+      <div class="c-list">
+        <div class="c-row"><div><p class="label">Email</p><b id="c-email">vigneshkdevadiga2003@gmail.com</b></div><button class="copy" type="button" data-copy="c-email">Copy</button></div>
+        <div class="c-row"><div><p class="label">Phone / WhatsApp</p><b id="c-phone">+91 87920 35603</b></div><button class="copy" type="button" data-copy="c-phone">Copy</button></div>
+        <div class="c-row"><div><p class="label">Based in</p><b>Bengaluru, Karnataka</b></div></div>
+      </div>
+    </div>
+    <div class="wa-block" id="whatsapp">
+      <div>
+        <p class="label">WhatsApp</p>
+        <h3>Message me directly</h3>
+        <p>Fill this in and tap Send. WhatsApp opens with your message ready to go to my number.</p>
+      </div>
+      <form class="wa-form" id="wa-form" novalidate>
+        <label>Your name<input id="wa-name" name="name" type="text" autocomplete="name" placeholder="Name"></label>
+        <label>Company<input id="wa-company" name="company" type="text" autocomplete="organization" placeholder="Optional"></label>
+        <label class="full">About<select id="wa-topic" name="topic">
+          <option>A full-time role</option>
+          <option>A freelance project</option>
+          <option>Video editing</option>
+          <option>Thumbnails or design</option>
+          <option>Something else</option>
+        </select></label>
+        <label class="full">Message<textarea id="wa-msg" name="message" placeholder="Tell me about the role or project"></textarea></label>
+        <a class="wa-send full" id="wa-send" href="https://wa.me/918792035603" target="_blank" rel="noopener noreferrer"><svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A7.7 7.7 0 1 1 12 19.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>Send on WhatsApp</a>
+        <p class="wa-note full">Opens WhatsApp in a new tab or the app. Nothing is sent from this page.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer><span>© 2026 K Vignesh</span><span>Edited in Premiere. Designed in Photoshop.</span></footer>
+</main>
+<a class="wa-fab" id="wa-fab" href="https://wa.me/918792035603?text=Hi%20Vignesh%2C%20I%20saw%20your%20portfolio." target="_blank" rel="noopener noreferrer" aria-label="Chat with K Vignesh on WhatsApp"><svg class="wa-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.8-1.3A9.5 9.5 0 1 0 12 2.5Zm0 17.2a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.8.8.8-2.7-.2-.3A7.7 7.7 0 1 1 12 19.7Zm4.3-5.7c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.7.9-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg><span>Chat on WhatsApp</span></a>
+
+<script>
+const WORKS=[{"cat": "Podcasts", "title": "From Shimla to 30 Countries — Sneh Sharma", "url": "https://drive.google.com/file/d/10aszkneb4--R29_MtU_gs7qf4eHVIG3U/view", "poster": "10aszkneb4--R29_MtU_gs7qf4eHVIG3U.jpg", "preview": "10aszkneb4--R29_MtU_gs7qf4eHVIG3U.mp4", "land": true, "dur": 8054}, {"cat": "Podcasts", "title": "Becho Seekho — Prof. T. Prasad", "url": "https://drive.google.com/file/d/10TCOvSiWwhYE4AdUmgInuLUbAElcw5hc/view", "poster": "10TCOvSiWwhYE4AdUmgInuLUbAElcw5hc.jpg", "preview": "10TCOvSiWwhYE4AdUmgInuLUbAElcw5hc.mp4", "land": true, "dur": 4814}, {"cat": "Interviews", "title": "Podcast Studio, Behind the Scenes", "url": "https://drive.google.com/file/d/1x1fCfyiG-i7b4zRbERYjjDRRcJvwtFjk/view", "poster": "podcast-studio-bts.jpg", "preview": "podcast-studio-bts.mp4", "land": false, "dur": null}, {"cat": "Interviews", "title": "On Renewable Energy", "url": "https://drive.google.com/file/d/1qyFgSp8W-4Y2cMqYfFgLHODv5Qn6v9d-/view", "poster": "podcast-renewable-energy.jpg", "preview": "podcast-renewable-energy.mp4", "land": false, "dur": null}, {"cat": "Interviews", "title": "Vidith S — Student Story", "url": "https://drive.google.com/file/d/1DfzQhOP_iloFQZoKOiON7darI6mm6Guv/view", "poster": "vidith-student-story.jpg", "preview": "vidith-student-story.mp4", "land": false, "dur": null}, {"cat": "Interviews", "title": "Kerolin Govender on Vastu", "url": "https://drive.google.com/file/d/1DqOxSgIFkUWEm2QXUWqZ-g49GKEfUcoS/view", "poster": "kerolin-govender-vastu.jpg", "preview": "kerolin-govender-vastu.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Campus in Film Tones", "url": "https://drive.google.com/file/d/13DPPm-wHfaZbwv2jvpEdJoTbbpxq3gLc/view", "poster": "campus-in-film-tones.jpg", "preview": "campus-in-film-tones.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Darshanam — The Final Show", "url": "https://drive.google.com/file/d/1NxxdtrAryRH169dQywotJOi3auJRR4xQ/view", "poster": "darshanam-final-show.jpg", "preview": "darshanam-final-show.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Kannada Rajyotsava", "url": "https://drive.google.com/file/d/1qoCG8tI-H3qcbIYVf7UY4tzUzaoWdJ0w/view", "poster": "kannada-rajyotsava.jpg", "preview": "kannada-rajyotsava.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Busting Career Myths", "url": "https://drive.google.com/file/d/16ga4dy7Eoe5W_2gwyqBJKfM48YBU8vBr/view", "poster": "busting-career-myths.jpg", "preview": "busting-career-myths.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "This Is Life at REVA", "url": "https://drive.google.com/file/d/1Riyqs-15WrBxFWi0Drcoz9HEGXjdRhKJ/view", "poster": "this-is-life-at-reva.jpg", "preview": "this-is-life-at-reva.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Festival Day on Campus", "url": "https://drive.google.com/file/d/1MtHhWGm6zRjnv-PM3lfETT2g14Qg6HYK/view", "poster": "festival-day-on-campus.jpg", "preview": "festival-day-on-campus.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Father’s Day Voices", "url": "https://drive.google.com/file/d/1fnn_OhBbtz5DLFGreywqzoZyXxGcVAD8/view", "poster": "fathers-day-voices.jpg", "preview": "fathers-day-voices.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "Welcome, Batch 2026–27", "url": "https://drive.google.com/file/d/19RtXxuOEsru0UP671BhKO-a02RTaWUnC/view", "poster": "welcome-batch-2026.jpg", "preview": "welcome-batch-2026.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "See You at Saugandhika", "url": "https://drive.google.com/file/d/1nSSQDgMAzFpr4ouogq6sw6BYb1pHavf9/view", "poster": "see-you-at-saugandhika.jpg", "preview": "see-you-at-saugandhika.mp4", "land": false, "dur": null}, {"cat": "Reels", "title": "EEE Leads the Change", "url": "https://drive.google.com/file/d/14D5t3Sq1ZFy1RpXxjELopNRkYLP_bm4U/view", "poster": "eee-leads-the-change.jpg", "preview": "eee-leads-the-change.mp4", "land": false, "dur": null}, {"cat": "Brand films", "title": "Brand film 01", "url": "https://drive.google.com/file/d/1BcGNaC_F20ySYMmkMtBh5Kxahdl6qYdH/view", "poster": "1BcGNaC_F20ySYMmkMtBh5Kxahdl6qYdH.jpg", "preview": "1BcGNaC_F20ySYMmkMtBh5Kxahdl6qYdH.mp4", "land": true, "dur": 48}, {"cat": "Brand films", "title": "Brand film 02", "url": "https://drive.google.com/file/d/1kDi7Y6WwIPLwGTGi8u8y3XYwmDBN9Xji/view", "poster": "1kDi7Y6WwIPLwGTGi8u8y3XYwmDBN9Xji.jpg", "preview": "1kDi7Y6WwIPLwGTGi8u8y3XYwmDBN9Xji.mp4", "land": true, "dur": 66}, {"cat": "Brand films", "title": "Brand film 03", "url": "https://drive.google.com/file/d/1keoN5JXvDelSq0XrJKW9GD_qp0Aometi/view", "poster": "1keoN5JXvDelSq0XrJKW9GD_qp0Aometi.jpg", "preview": "1keoN5JXvDelSq0XrJKW9GD_qp0Aometi.mp4", "land": true, "dur": 62}, {"cat": "Brand films", "title": "Brand film 04", "url": "https://drive.google.com/file/d/1Cf5N8cBlBI5ntTVhbxnUrguQIHf2I3F7/view", "poster": "1Cf5N8cBlBI5ntTVhbxnUrguQIHf2I3F7.jpg", "preview": "1Cf5N8cBlBI5ntTVhbxnUrguQIHf2I3F7.mp4", "land": true, "dur": 627}, {"cat": "Brand films", "title": "Brand film 05", "url": "https://drive.google.com/file/d/1g_Hbqi_U8Bw9RbmMT22qFEsx2RHMNAs9/view", "poster": "1g_Hbqi_U8Bw9RbmMT22qFEsx2RHMNAs9.jpg", "preview": "1g_Hbqi_U8Bw9RbmMT22qFEsx2RHMNAs9.mp4", "land": true, "dur": 93}, {"cat": "Brand films", "title": "Brand film 06", "url": "https://drive.google.com/file/d/11InLL9ePQwGqAtEjF4iPkhWtcjKN3wN6/view", "poster": "11InLL9ePQwGqAtEjF4iPkhWtcjKN3wN6.jpg", "preview": "11InLL9ePQwGqAtEjF4iPkhWtcjKN3wN6.mp4", "land": true, "dur": 92}, {"cat": "Brand films", "title": "Brand film 07", "url": "https://drive.google.com/file/d/1nG-S-9QrhstRyOFjf2UxIbdGtJcBigRI/view", "poster": "1nG-S-9QrhstRyOFjf2UxIbdGtJcBigRI.jpg", "preview": "1nG-S-9QrhstRyOFjf2UxIbdGtJcBigRI.mp4", "land": true, "dur": 66}, {"cat": "Brand films", "title": "Brand film 08", "url": "https://drive.google.com/file/d/1HufUNASOUXFNFctb03BR0yuhBUdE2764/view", "poster": "1HufUNASOUXFNFctb03BR0yuhBUdE2764.jpg", "preview": "1HufUNASOUXFNFctb03BR0yuhBUdE2764.mp4", "land": true, "dur": 68}, {"cat": "Brand films", "title": "Brand film 09", "url": "https://drive.google.com/file/d/1XydtqB-tP4hYarGPxzMheU1BBa-k8GvC/view", "poster": "1XydtqB-tP4hYarGPxzMheU1BBa-k8GvC.jpg", "preview": "1XydtqB-tP4hYarGPxzMheU1BBa-k8GvC.mp4", "land": true, "dur": 58}, {"cat": "Brand films", "title": "Brand film 10", "url": "https://drive.google.com/file/d/1VH6W1hikNdoRLhHdhQ5UsjWd3375sNMI/view", "poster": "1VH6W1hikNdoRLhHdhQ5UsjWd3375sNMI.jpg", "preview": "1VH6W1hikNdoRLhHdhQ5UsjWd3375sNMI.mp4", "land": true, "dur": 127}, {"cat": "Brand films", "title": "Brand film 11", "url": "https://drive.google.com/file/d/1TY6HK3vcp4q6ztYIxpJUK-Xfzfx_02tS/view", "poster": "1TY6HK3vcp4q6ztYIxpJUK-Xfzfx_02tS.jpg", "preview": "1TY6HK3vcp4q6ztYIxpJUK-Xfzfx_02tS.mp4", "land": true, "dur": 69}, {"cat": "Brand films", "title": "Brand film 12", "url": "https://drive.google.com/file/d/1EKvXt72yJxq_MDGtAgkZnfT8Nsuuoxdo/view", "poster": "1EKvXt72yJxq_MDGtAgkZnfT8Nsuuoxdo.jpg", "preview": "1EKvXt72yJxq_MDGtAgkZnfT8Nsuuoxdo.mp4", "land": true, "dur": 73}, {"cat": "Brand films", "title": "Brand film 13", "url": "https://drive.google.com/file/d/1OtZgr2t6C9v1IGloduhSv_ucAJ2RUs4C/view", "poster": "1OtZgr2t6C9v1IGloduhSv_ucAJ2RUs4C.jpg", "preview": "1OtZgr2t6C9v1IGloduhSv_ucAJ2RUs4C.mp4", "land": true, "dur": 74}, {"cat": "Brand films", "title": "Brand film 14", "url": "https://drive.google.com/file/d/1B6fF-AdtGnUF1xV6H1JhZHwNm3mJsqvj/view", "poster": "1B6fF-AdtGnUF1xV6H1JhZHwNm3mJsqvj.jpg", "preview": "1B6fF-AdtGnUF1xV6H1JhZHwNm3mJsqvj.mp4", "land": true, "dur": 39}, {"cat": "Brand films", "title": "Brand film 15", "url": "https://drive.google.com/file/d/1tZKiPS2DIqwSaOjhBlzIVtIrNPAM16EO/view", "poster": "1tZKiPS2DIqwSaOjhBlzIVtIrNPAM16EO.jpg", "preview": "1tZKiPS2DIqwSaOjhBlzIVtIrNPAM16EO.mp4", "land": true, "dur": 48}, {"cat": "Events", "title": "Event highlights 01", "url": "https://drive.google.com/file/d/12-BPG_hkSKi9WCRI3EiqZJUKyRyuOAp_/view", "poster": "12-BPG_hkSKi9WCRI3EiqZJUKyRyuOAp_.jpg", "preview": "12-BPG_hkSKi9WCRI3EiqZJUKyRyuOAp_.mp4", "land": false, "dur": 30}, {"cat": "Events", "title": "Event highlights 02", "url": "https://drive.google.com/file/d/1N6CphtOKpXZwMKibYKtTb2lavLuTwxyK/view", "poster": "1N6CphtOKpXZwMKibYKtTb2lavLuTwxyK.jpg", "preview": "1N6CphtOKpXZwMKibYKtTb2lavLuTwxyK.mp4", "land": false, "dur": 58}, {"cat": "Events", "title": "Event highlights 03", "url": "https://drive.google.com/file/d/1_ap_GTFWt0fQTkM4TaEd237e55pOiPOL/view", "poster": "1_ap_GTFWt0fQTkM4TaEd237e55pOiPOL.jpg", "preview": "1_ap_GTFWt0fQTkM4TaEd237e55pOiPOL.mp4", "land": true, "dur": 33}, {"cat": "Events", "title": "Event highlights 04", "url": "https://drive.google.com/file/d/1Num7BHSv1xvwX53AwQ67pv3Kltss5Gis/view", "poster": "1Num7BHSv1xvwX53AwQ67pv3Kltss5Gis.jpg", "preview": "1Num7BHSv1xvwX53AwQ67pv3Kltss5Gis.mp4", "land": true, "dur": 68}, {"cat": "Events", "title": "Event highlights 05", "url": "https://drive.google.com/file/d/1OcF3KOLZ2mq7JHyd53faO9Gkoej1A2sx/view", "poster": "1OcF3KOLZ2mq7JHyd53faO9Gkoej1A2sx.jpg", "preview": "1OcF3KOLZ2mq7JHyd53faO9Gkoej1A2sx.mp4", "land": false, "dur": 37}, {"cat": "Events", "title": "Event highlights 06", "url": "https://drive.google.com/file/d/125JWTUPDv_0kkASMdAl4jy5oXZfUm4t0/view", "poster": "125JWTUPDv_0kkASMdAl4jy5oXZfUm4t0.jpg", "preview": "125JWTUPDv_0kkASMdAl4jy5oXZfUm4t0.mp4", "land": false, "dur": 61}, {"cat": "Events", "title": "Event highlights 07", "url": "https://drive.google.com/file/d/1CPgHdFf4QhzqYSa3C65jJmrAm2QaWtQM/view", "poster": "1CPgHdFf4QhzqYSa3C65jJmrAm2QaWtQM.jpg", "preview": "1CPgHdFf4QhzqYSa3C65jJmrAm2QaWtQM.mp4", "land": false, "dur": 44}, {"cat": "Events", "title": "Event highlights 08", "url": "https://drive.google.com/file/d/1NkdzMckhma_yaZnB6fnT7YwGdy4phPeI/view", "poster": "1NkdzMckhma_yaZnB6fnT7YwGdy4phPeI.jpg", "preview": "1NkdzMckhma_yaZnB6fnT7YwGdy4phPeI.mp4", "land": false, "dur": 48}, {"cat": "Events", "title": "Event highlights 09", "url": "https://drive.google.com/file/d/1cO98I6cRj4InKumzjYkISdO4NJPLe1ij/view", "poster": "1cO98I6cRj4InKumzjYkISdO4NJPLe1ij.jpg", "preview": "1cO98I6cRj4InKumzjYkISdO4NJPLe1ij.mp4", "land": false, "dur": 45}, {"cat": "Events", "title": "Event highlights 10", "url": "https://drive.google.com/file/d/1gLffTP6vnGQJlwlrt3tXiJFdRc8M9CkX/view", "poster": "1gLffTP6vnGQJlwlrt3tXiJFdRc8M9CkX.jpg", "preview": "1gLffTP6vnGQJlwlrt3tXiJFdRc8M9CkX.mp4", "land": false, "dur": 32}, {"cat": "Events", "title": "Event highlights 11", "url": "https://drive.google.com/file/d/19ay9NBzm24TsmGfB8qOHF-h4hwW2PhR0/view", "poster": "19ay9NBzm24TsmGfB8qOHF-h4hwW2PhR0.jpg", "preview": "19ay9NBzm24TsmGfB8qOHF-h4hwW2PhR0.mp4", "land": false, "dur": 41}, {"cat": "Events", "title": "Event highlights 12", "url": "https://drive.google.com/file/d/1T53TKH4BKezEmBIaB7--jtAXFTO9GN_L/view", "poster": "1T53TKH4BKezEmBIaB7--jtAXFTO9GN_L.jpg", "preview": "1T53TKH4BKezEmBIaB7--jtAXFTO9GN_L.mp4", "land": false, "dur": 37}, {"cat": "Events", "title": "Event highlights 13", "url": "https://drive.google.com/file/d/1QfD6mTBkGqH-sl77HNAzoqvK719WvTLv/view", "poster": "1QfD6mTBkGqH-sl77HNAzoqvK719WvTLv.jpg", "preview": "1QfD6mTBkGqH-sl77HNAzoqvK719WvTLv.mp4", "land": false, "dur": 33}, {"cat": "Events", "title": "Event highlights 14", "url": "https://drive.google.com/file/d/1heDQs4iObsE7E1uCYXdaRqKvM1SQKHCW/view", "poster": "1heDQs4iObsE7E1uCYXdaRqKvM1SQKHCW.jpg", "preview": "1heDQs4iObsE7E1uCYXdaRqKvM1SQKHCW.mp4", "land": false, "dur": 46}, {"cat": "Events", "title": "Event highlights 15", "url": "https://drive.google.com/file/d/1qyZmE9Lzr1lhpwO-ic5letZCH2bXtdyU/view", "poster": "1qyZmE9Lzr1lhpwO-ic5letZCH2bXtdyU.jpg", "preview": "1qyZmE9Lzr1lhpwO-ic5letZCH2bXtdyU.mp4", "land": false, "dur": 38}, {"cat": "Events", "title": "Event highlights 16", "url": "https://drive.google.com/file/d/1pLKjj1j-C5AYANetC5g6opNCi77ouiR2/view", "poster": "1pLKjj1j-C5AYANetC5g6opNCi77ouiR2.jpg", "preview": "1pLKjj1j-C5AYANetC5g6opNCi77ouiR2.mp4", "land": false, "dur": 39}, {"cat": "Interviews", "title": "Student story 01", "url": "https://drive.google.com/file/d/1K3u5Wm-KNIMgm5JIIXZGHwvJtWL4_8ly/view", "poster": "1K3u5Wm-KNIMgm5JIIXZGHwvJtWL4_8ly.jpg", "preview": "1K3u5Wm-KNIMgm5JIIXZGHwvJtWL4_8ly.mp4", "land": false, "dur": 60}, {"cat": "Interviews", "title": "Student story 02", "url": "https://drive.google.com/file/d/18I2GHq3ytzffaM2J-PzpRBxp9duebfak/view", "poster": "18I2GHq3ytzffaM2J-PzpRBxp9duebfak.jpg", "preview": "18I2GHq3ytzffaM2J-PzpRBxp9duebfak.mp4", "land": false, "dur": 57}, {"cat": "Interviews", "title": "Student story 03", "url": "https://drive.google.com/file/d/1qgLIiD0UAe_s7X9e_1J9Qgfk18SIjSgE/view", "poster": "1qgLIiD0UAe_s7X9e_1J9Qgfk18SIjSgE.jpg", "preview": "1qgLIiD0UAe_s7X9e_1J9Qgfk18SIjSgE.mp4", "land": false, "dur": 62}, {"cat": "Interviews", "title": "Student story 04", "url": "https://drive.google.com/file/d/1dco4lZXNzSNfB6GLQd5cA9lyso6Akemv/view", "poster": "1dco4lZXNzSNfB6GLQd5cA9lyso6Akemv.jpg", "preview": "1dco4lZXNzSNfB6GLQd5cA9lyso6Akemv.mp4", "land": true, "dur": 220}, {"cat": "Interviews", "title": "Student story 05", "url": "https://drive.google.com/file/d/1DfzQhOP_iloFQZoKOiON7darI6mm6Guv/view", "poster": "1DfzQhOP_iloFQZoKOiON7darI6mm6Guv.jpg", "preview": "1DfzQhOP_iloFQZoKOiON7darI6mm6Guv.mp4", "land": false, "dur": 34}, {"cat": "Interviews", "title": "Student story 06", "url": "https://drive.google.com/file/d/1SJu4TQ_hEqlVzwn3Z4JMLBB7JlsGPwyS/view", "poster": "1SJu4TQ_hEqlVzwn3Z4JMLBB7JlsGPwyS.jpg", "preview": "1SJu4TQ_hEqlVzwn3Z4JMLBB7JlsGPwyS.mp4", "land": true, "dur": 520}, {"cat": "Interviews", "title": "Student story 07", "url": "https://drive.google.com/file/d/1LJCoO8d8NVGKN8PUiiJ-VdxFffdFc4gW/view", "poster": "1LJCoO8d8NVGKN8PUiiJ-VdxFffdFc4gW.jpg", "preview": "1LJCoO8d8NVGKN8PUiiJ-VdxFffdFc4gW.mp4", "land": true, "dur": 127}, {"cat": "Interviews", "title": "Student story 08", "url": "https://drive.google.com/file/d/1HjN3roYRyhAj-oe_7UcRg0gc9HI0aEnM/view", "poster": "1HjN3roYRyhAj-oe_7UcRg0gc9HI0aEnM.jpg", "preview": "1HjN3roYRyhAj-oe_7UcRg0gc9HI0aEnM.mp4", "land": true, "dur": 192}, {"cat": "Interviews", "title": "Student story 09", "url": "https://drive.google.com/file/d/1k8h1fNg5v8BlOLckb1A949pAS4yCRKw6/view", "poster": "1k8h1fNg5v8BlOLckb1A949pAS4yCRKw6.jpg", "preview": "1k8h1fNg5v8BlOLckb1A949pAS4yCRKw6.mp4", "land": true, "dur": 61}, {"cat": "Interviews", "title": "Student story 10", "url": "https://drive.google.com/file/d/1zKDG3XI40-K4TpjwpT5tCLzXJti4KXpF/view", "poster": "1zKDG3XI40-K4TpjwpT5tCLzXJti4KXpF.jpg", "preview": "1zKDG3XI40-K4TpjwpT5tCLzXJti4KXpF.mp4", "land": true, "dur": 160}, {"cat": "Interviews", "title": "Student story 11", "url": "https://drive.google.com/file/d/1yxoS7UauwR9C27-eWFNGpLTroSdHUXRz/view", "poster": "1yxoS7UauwR9C27-eWFNGpLTroSdHUXRz.jpg", "preview": "1yxoS7UauwR9C27-eWFNGpLTroSdHUXRz.mp4", "land": false, "dur": 167}, {"cat": "Interviews", "title": "Student story 12", "url": "https://drive.google.com/file/d/1HYBwRPon3Qe8v3CNvZImf8IRDIE-876b/view", "poster": "1HYBwRPon3Qe8v3CNvZImf8IRDIE-876b.jpg", "preview": "1HYBwRPon3Qe8v3CNvZImf8IRDIE-876b.mp4", "land": true, "dur": 52}, {"cat": "Ads", "title": "Digital ad 01", "url": "https://drive.google.com/file/d/1v4yen4LcdIj9Y71CL8dCOi62rEcST_Mm/view", "poster": "1v4yen4LcdIj9Y71CL8dCOi62rEcST_Mm.jpg", "preview": "1v4yen4LcdIj9Y71CL8dCOi62rEcST_Mm.mp4", "land": false, "dur": 10}, {"cat": "Ads", "title": "Digital ad 02", "url": "https://drive.google.com/file/d/130UwHG7Ue_RuXgfYu_QZHTsGWefsdj3Y/view", "poster": "130UwHG7Ue_RuXgfYu_QZHTsGWefsdj3Y.jpg", "preview": "130UwHG7Ue_RuXgfYu_QZHTsGWefsdj3Y.mp4", "land": false, "dur": 10}, {"cat": "Ads", "title": "Digital ad 03", "url": "https://drive.google.com/file/d/1Yhk849yCcvlh4zoG9lLcPgUxjeLhrt4p/view", "poster": "1Yhk849yCcvlh4zoG9lLcPgUxjeLhrt4p.jpg", "preview": "1Yhk849yCcvlh4zoG9lLcPgUxjeLhrt4p.mp4", "land": false, "dur": 10}, {"cat": "Ads", "title": "Digital ad 04", "url": "https://drive.google.com/file/d/1SSp6r6sujWyeic-UQHoua733S9fhbdj2/view", "poster": "1SSp6r6sujWyeic-UQHoua733S9fhbdj2.jpg", "preview": "1SSp6r6sujWyeic-UQHoua733S9fhbdj2.mp4", "land": true, "dur": 36}, {"cat": "Ads", "title": "Digital ad 05", "url": "https://drive.google.com/file/d/1-DsxSjVyVcZFjuGWd0_0JXKQ0BA_qFFa/view", "poster": "1-DsxSjVyVcZFjuGWd0_0JXKQ0BA_qFFa.jpg", "preview": "1-DsxSjVyVcZFjuGWd0_0JXKQ0BA_qFFa.mp4", "land": true, "dur": 20}, {"cat": "Ads", "title": "Digital ad 06", "url": "https://drive.google.com/file/d/1NCiBeXY7QXAeO8kjVIRMa1RoEmFCCRbe/view", "poster": "1NCiBeXY7QXAeO8kjVIRMa1RoEmFCCRbe.jpg", "preview": "1NCiBeXY7QXAeO8kjVIRMa1RoEmFCCRbe.mp4", "land": true, "dur": 20}, {"cat": "Reels", "title": "Your enterprising journey begins here", "url": "https://drive.google.com/file/d/12TtDJFrO6QhZvzOFogxN9XoJUW5pryF0/view", "poster": "12TtDJFrO6QhZvzOFogxN9XoJUW5pryF0.jpg", "preview": "12TtDJFrO6QhZvzOFogxN9XoJUW5pryF0.mp4", "land": false, "dur": 98}, {"cat": "Reels", "title": "Parents on campus", "url": "https://drive.google.com/file/d/19NzU46aYQVEZV0faG_UEXohyRCyk8j06/view", "poster": "19NzU46aYQVEZV0faG_UEXohyRCyk8j06.jpg", "preview": "19NzU46aYQVEZV0faG_UEXohyRCyk8j06.mp4", "land": false, "dur": 77}, {"cat": "Reels", "title": "Happy 80th Independence Day", "url": "https://drive.google.com/file/d/1GTL2A4CpcciQXUfuqOK2V4Jm_J_9sRFH/view", "poster": "1GTL2A4CpcciQXUfuqOK2V4Jm_J_9sRFH.jpg", "preview": "1GTL2A4CpcciQXUfuqOK2V4Jm_J_9sRFH.mp4", "land": false, "dur": 23}, {"cat": "Reels", "title": "World Bicycle Day 2026", "url": "https://drive.google.com/file/d/1Q5bzkmuq6362lNW324wDniNZuIMWs_jL/view", "poster": "1Q5bzkmuq6362lNW324wDniNZuIMWs_jL.jpg", "preview": "1Q5bzkmuq6362lNW324wDniNZuIMWs_jL.mp4", "land": false, "dur": 47}, {"cat": "Reels", "title": "Campus vox pop", "url": "https://drive.google.com/file/d/15KJ5rOTmfb91Jzq-9aGbU-3gcBgJzJ9D/view", "poster": "15KJ5rOTmfb91Jzq-9aGbU-3gcBgJzJ9D.jpg", "preview": "15KJ5rOTmfb91Jzq-9aGbU-3gcBgJzJ9D.mp4", "land": false, "dur": 96}, {"cat": "Reels", "title": "REVA cheers for RCB in the IPL 2025 final", "url": "https://drive.google.com/file/d/1tggNHKkh4unLH4ooh7xyNkf9N6O-HQOF/view", "poster": "1tggNHKkh4unLH4ooh7xyNkf9N6O-HQOF.jpg", "preview": "1tggNHKkh4unLH4ooh7xyNkf9N6O-HQOF.mp4", "land": false, "dur": 53}, {"cat": "Reels", "title": "Campus reel 01", "url": "https://drive.google.com/file/d/1mMvYrPYLOx89tAJDbXXzTePVdZFhcRW4/view", "poster": "1mMvYrPYLOx89tAJDbXXzTePVdZFhcRW4.jpg", "preview": "1mMvYrPYLOx89tAJDbXXzTePVdZFhcRW4.mp4", "land": false, "dur": 28}, {"cat": "Reels", "title": "Campus reel 02", "url": "https://drive.google.com/file/d/1Gf362wDvx462p8dcGuSXzfOX2o_dRNRi/view", "poster": "1Gf362wDvx462p8dcGuSXzfOX2o_dRNRi.jpg", "preview": "1Gf362wDvx462p8dcGuSXzfOX2o_dRNRi.mp4", "land": false, "dur": 15}, {"cat": "Reels", "title": "Campus reel 03", "url": "https://drive.google.com/file/d/1XSiX-MGjOS-CEtEoe6gxw_6IfdzQWD0S/view", "poster": "1XSiX-MGjOS-CEtEoe6gxw_6IfdzQWD0S.jpg", "preview": "1XSiX-MGjOS-CEtEoe6gxw_6IfdzQWD0S.mp4", "land": false, "dur": 10}, {"cat": "Reels", "title": "Campus reel 04", "url": "https://drive.google.com/file/d/12M5_5iAZcOofTYVaoh404cxDu5lu5RAI/view", "poster": "12M5_5iAZcOofTYVaoh404cxDu5lu5RAI.jpg", "preview": "12M5_5iAZcOofTYVaoh404cxDu5lu5RAI.mp4", "land": false, "dur": 23}, {"cat": "Reels", "title": "Campus reel 05", "url": "https://drive.google.com/file/d/1Ldc3bU569cThtb0v1jb16Pu0BSp976ba/view", "poster": "1Ldc3bU569cThtb0v1jb16Pu0BSp976ba.jpg", "preview": "1Ldc3bU569cThtb0v1jb16Pu0BSp976ba.mp4", "land": false, "dur": 10}, {"cat": "Reels", "title": "Campus reel 06", "url": "https://drive.google.com/file/d/1eiBvSsIXRlgrnOkl1iVTrJDC5KTXFUi_/view", "poster": "1eiBvSsIXRlgrnOkl1iVTrJDC5KTXFUi_.jpg", "preview": "1eiBvSsIXRlgrnOkl1iVTrJDC5KTXFUi_.mp4", "land": false, "dur": 10}, {"cat": "Reels", "title": "Campus reel 07", "url": "https://drive.google.com/file/d/1cMSxjwE5fRnCr77uRtrlz4i-P8hkyyKa/view", "poster": "1cMSxjwE5fRnCr77uRtrlz4i-P8hkyyKa.jpg", "preview": "1cMSxjwE5fRnCr77uRtrlz4i-P8hkyyKa.mp4", "land": true, "dur": 47}, {"cat": "Reels", "title": "Campus reel 08", "url": "https://drive.google.com/file/d/18ENodgg7W513JcdwjEjGe1MrnqrMxJa6/view", "poster": "18ENodgg7W513JcdwjEjGe1MrnqrMxJa6.jpg", "preview": "18ENodgg7W513JcdwjEjGe1MrnqrMxJa6.mp4", "land": false, "dur": 31}, {"cat": "Reels", "title": "Campus reel 09", "url": "https://drive.google.com/file/d/1hrsooohAAlk-vegARzIiM3sK0chHEB_K/view", "poster": "1hrsooohAAlk-vegARzIiM3sK0chHEB_K.jpg", "preview": "1hrsooohAAlk-vegARzIiM3sK0chHEB_K.mp4", "land": true, "dur": 113}, {"cat": "Reels", "title": "Campus reel 10", "url": "https://drive.google.com/file/d/1lLVZoKe-Lj_KLmkMdbVAXHNpqscb6x8k/view", "poster": "1lLVZoKe-Lj_KLmkMdbVAXHNpqscb6x8k.jpg", "preview": "1lLVZoKe-Lj_KLmkMdbVAXHNpqscb6x8k.mp4", "land": false, "dur": 16}, {"cat": "Reels", "title": "Campus reel 11", "url": "https://drive.google.com/file/d/1R2hFurnZSpwPRlc6zxAp3A-PJuagxARr/view", "poster": "1R2hFurnZSpwPRlc6zxAp3A-PJuagxARr.jpg", "preview": "1R2hFurnZSpwPRlc6zxAp3A-PJuagxARr.mp4", "land": true, "dur": 40}, {"cat": "Reels", "title": "Campus reel 12", "url": "https://drive.google.com/file/d/1Eiolw20OBggZhFA5D54Zrpuz8Jk-loS5/view", "poster": "1Eiolw20OBggZhFA5D54Zrpuz8Jk-loS5.jpg", "preview": "1Eiolw20OBggZhFA5D54Zrpuz8Jk-loS5.mp4", "land": true, "dur": 58}, {"cat": "Reels", "title": "Campus reel 13", "url": "https://drive.google.com/file/d/11E_4LNwu0K63Qp1PMWd-OSYcx8npW3cH/view", "poster": "11E_4LNwu0K63Qp1PMWd-OSYcx8npW3cH.jpg", "preview": "11E_4LNwu0K63Qp1PMWd-OSYcx8npW3cH.mp4", "land": false, "dur": 119}, {"cat": "Reels", "title": "Campus reel 14", "url": "https://drive.google.com/file/d/1RnyKPaykkBOKmPriZ58bH4ZiZesS8TW_/view", "poster": "1RnyKPaykkBOKmPriZ58bH4ZiZesS8TW_.jpg", "preview": "1RnyKPaykkBOKmPriZ58bH4ZiZesS8TW_.mp4", "land": false, "dur": 7}, {"cat": "Reels", "title": "Campus reel 15", "url": "https://drive.google.com/file/d/1gM5r2Au0XqaaFmVPS-lpTCcztUhD5ygG/view", "poster": "1gM5r2Au0XqaaFmVPS-lpTCcztUhD5ygG.jpg", "preview": "1gM5r2Au0XqaaFmVPS-lpTCcztUhD5ygG.mp4", "land": true, "dur": 40}, {"cat": "Reels", "title": "Campus reel 16", "url": "https://drive.google.com/file/d/1AhSTleeglw18-ZWWEzMmrK_sDlbz4f8O/view", "poster": "1AhSTleeglw18-ZWWEzMmrK_sDlbz4f8O.jpg", "preview": "1AhSTleeglw18-ZWWEzMmrK_sDlbz4f8O.mp4", "land": false, "dur": 62}, {"cat": "Reels", "title": "Campus reel 17", "url": "https://drive.google.com/file/d/1-bhdTnmevMRmGvlR8Vd3Y_gQYp6H0n8I/view", "poster": "1-bhdTnmevMRmGvlR8Vd3Y_gQYp6H0n8I.jpg", "preview": "1-bhdTnmevMRmGvlR8Vd3Y_gQYp6H0n8I.mp4", "land": false, "dur": 40}, {"cat": "Reels", "title": "Campus reel 18", "url": "https://drive.google.com/file/d/1beuXDT-NGFQikaPTIunPWKosalw7IXB4/view", "poster": "1beuXDT-NGFQikaPTIunPWKosalw7IXB4.jpg", "preview": "1beuXDT-NGFQikaPTIunPWKosalw7IXB4.mp4", "land": false, "dur": 52}, {"cat": "Reels", "title": "Campus reel 19", "url": "https://drive.google.com/file/d/1qxEjS9Pb80ZVg-3wy3hAKJKaqaf_wtrT/view", "poster": "1qxEjS9Pb80ZVg-3wy3hAKJKaqaf_wtrT.jpg", "preview": "1qxEjS9Pb80ZVg-3wy3hAKJKaqaf_wtrT.mp4", "land": false, "dur": 58}, {"cat": "Reels", "title": "Campus reel 20", "url": "https://drive.google.com/file/d/1p-OXBwvWqWCGCaR-U9Nlo1QubcnuwHH2/view", "poster": "1p-OXBwvWqWCGCaR-U9Nlo1QubcnuwHH2.jpg", "preview": "1p-OXBwvWqWCGCaR-U9Nlo1QubcnuwHH2.mp4", "land": false, "dur": 32}, {"cat": "Reels", "title": "Campus reel 21", "url": "https://drive.google.com/file/d/1vozniGr3qCJ5zSQDqmqtUEwvyb6qsOqz/view", "poster": "1vozniGr3qCJ5zSQDqmqtUEwvyb6qsOqz.jpg", "preview": "1vozniGr3qCJ5zSQDqmqtUEwvyb6qsOqz.mp4", "land": false, "dur": 39}, {"cat": "Reels", "title": "Campus reel 22", "url": "https://drive.google.com/file/d/1bidE3uXH9_-60owiXFfhWY-boogsD75w/view", "poster": "1bidE3uXH9_-60owiXFfhWY-boogsD75w.jpg", "preview": "1bidE3uXH9_-60owiXFfhWY-boogsD75w.mp4", "land": false, "dur": 56}, {"cat": "Reels", "title": "Campus reel 23", "url": "https://drive.google.com/file/d/1Rhs3fKWDeuZORQ1CzeO7C9MrQGeY8yLD/view", "poster": "1Rhs3fKWDeuZORQ1CzeO7C9MrQGeY8yLD.jpg", "preview": "1Rhs3fKWDeuZORQ1CzeO7C9MrQGeY8yLD.mp4", "land": true, "dur": 70}];
+const ORDER=["Podcasts","Brand films","Reels","Events","Interviews","Ads"];
+const NOTES={"Podcasts":"GUESSS India podcast series with REVA University","Brand films":"Films for REVA's brand and programmes","Reels":"Campus life, festivals and student stories","Events":"Event highlights from campus","Interviews":"Students, faculty and guests","Ads":"Paid social and video ads"};
+const PHONE=matchMedia('(max-width:560px)');
+const LIMIT={tall:10,land:6};
+const lim=(k,all)=>all||PHONE.matches?Infinity:LIMIT[k];
+const CC={"Podcasts":"var(--clip-a)","Brand films":"var(--clip-c)","Reels":"var(--pink)","Events":"var(--clip-b)","Interviews":"var(--sky)","Ads":"var(--lime)"};
+const fmt=d=>{if(!d)return'';const h=Math.floor(d/3600),m=Math.floor(d%3600/60),s=String(d%60).padStart(2,'0');return h?`${h}:${String(m).padStart(2,'0')}:${s}`:`${m}:${s}`};
+const esc=t=>t.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* Auto preview: thumbnails play their clip while on screen; a few at a time. */
+const MAXPV=matchMedia('(max-width:560px)').matches?3:8;
+const playing=new Set();
+function startPv(a){
+  if(!a._src)return;
+  if(!a._v){const v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.setAttribute('playsinline','');v.preload='metadata';v.src=a._src;a._fr.insertBefore(v,a._fr.querySelector('.badge'));a._v=v}
+  if(playing.has(a))return;
+  if(playing.size>=MAXPV){const first=playing.values().next().value;stopPv(first)}
+  playing.add(a);
+  a._v.play().then(()=>a._fr.classList.add('playing')).catch(()=>playing.delete(a));
+}
+function stopPv(a){if(!a)return;playing.delete(a);if(a._v){a._v.pause();a._fr.classList.remove('playing')}}
+const pvObs=('IntersectionObserver' in window)&&!reduce?new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.intersectionRatio>=.6?startPv(e.target):stopPv(e.target)),{threshold:[0,.6]}):null;
+/* Scroll reveal: only elements below the first screen wait; everything above it is already in place. */
+const rvObs=('IntersectionObserver' in window)&&!reduce?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('rv-in');e.target.classList.remove('rv-wait');rvObs.unobserve(e.target);e.target.dispatchEvent(new Event('revealed'))}}),{rootMargin:'0px 0px -8% 0px'}):null;
+function reveal(el,i){
+  if(!rvObs)return;
+  if(i!=null)el.style.setProperty('--i',i%5);
+  requestAnimationFrame(()=>{if(el.getBoundingClientRect().top>innerHeight*.92){el.classList.add('rv-wait');rvObs.observe(el)}else el.classList.add('rv-in')});
+}
+function card(w){
+  const a=document.createElement('a');a.className='card';a.href=w.url;a.target='_blank';a.rel='noopener noreferrer';
+  a.setAttribute('aria-label',w.title+' — opens in Google Drive');
+  a.innerHTML=`<div class="frame"><img src="w/${w.poster}" alt="" loading="lazy">${w.dur?`<span class="badge">${fmt(w.dur)}</span>`:''}<span class="play" aria-hidden="true"></span></div><h4>${esc(w.title)}</h4><span class="meta">${w.cat}${w.dur?' · '+fmt(w.dur):''}</span>`;
+  if(w.preview&&!reduce){a._fr=a.querySelector('.frame');a._src='w/'+w.preview;
+    a.addEventListener('mouseenter',()=>startPv(a));a.addEventListener('focus',()=>startPv(a));
+    pvObs&&pvObs.observe(a);}
+  reveal(a);
+  return a;
+}
+function grid(list,kind,all){
+  const g=document.createElement('div');g.className='grid '+kind;
+  list.slice(0,lim(kind,all)).forEach((w,i)=>{const c=card(w);c.style.setProperty('--i',i%5);g.append(c)});
+  return g;
+}
+function shelf(cat,all){
+  const items=WORKS.filter(w=>w.cat===cat);
+  const sec=document.createElement('div');sec.className='shelf';sec.style.setProperty('--cc',CC[cat]);
+  sec.innerHTML=`<div class="shelf-head"><h3>${cat}</h3><span class="label">${items.length} · ${NOTES[cat]}</span></div><span class="swipe">Swipe for all ${items.length} →</span>`;
+  const land=items.filter(w=>w.land),tall=items.filter(w=>!w.land);
+  const big=[];
+  if(tall.length)big.push([tall,'tall']);
+  if(land.length)big.push([land,'land']);
+  if(cat==='Brand films'||cat==='Podcasts')big.reverse();
+  big.forEach(([l,k])=>{
+    const g=grid(l,k,all);
+    if(cat==='Podcasts'){const c=document.createElement('a');c.className='channel';c.href='https://www.youtube.com/@guesssindiapodcast';c.target='_blank';c.rel='noopener noreferrer';c.innerHTML='<span class="label" style="color:inherit;opacity:.7">YouTube channel</span><b>GUESSS India Podcast</b><span>Every episode of the series</span><em>Visit channel ↗</em>';g.append(c)}
+    sec.append(g);
+  });
+  const hidden=items.length-big.reduce((n,[l,k])=>n+Math.min(l.length,lim(k,all)),0);
+  if(hidden>0){const b=document.createElement('button');b.type='button';b.className='btn more-btn';b.textContent=`Show all ${items.length}`;b.addEventListener('click',()=>sec.replaceWith(shelf(cat,true)));sec.append(b)}
+  return sec;
+}
+const shelves=document.getElementById('shelves'),chips=document.getElementById('chips');
+function show(f){
+  shelves.innerHTML='';
+  (f==='all'?ORDER:[f]).forEach(c=>shelves.append(shelf(c,f!=='all')));
+  chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',String(c.dataset.f===f)));
+}
+[['all','All',WORKS.length],...ORDER.map(c=>[c,c,WORKS.filter(w=>w.cat===c).length])].forEach(([f,l,n])=>{
+  const b=document.createElement('button');b.type='button';b.className='chip';b.dataset.f=f;if(CC[f])b.style.setProperty('--cc',CC[f]);b.innerHTML=`${l}<span>${n}</span>`;
+  b.addEventListener('click',()=>show(f));chips.append(b);
+});
+show('all');
+let curF='all';
+chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)curF=b.dataset.f});
+PHONE.addEventListener&&PHONE.addEventListener('change',()=>show(curF));
+/* Mobile section nav: underline the section in view */
+(()=>{
+  const links=[...document.querySelectorAll('nav a')];
+  if(!('IntersectionObserver' in window))return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  ['work','experience','skills','contact'].forEach(id=>{const el=document.getElementById(id);el&&io.observe(el)});
+})();
+/* Reveal headings, jobs, skills and contact as they scroll in */
+document.querySelectorAll('.head,.shelf-head,.job,.app,.tags,.facts,.contact,.track-wrap,.stat').forEach((el,i)=>reveal(el,i));
+/* Count up the stats when they come into view */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  if(reduce)return;
+  const end=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),suf=el.dataset.suffix||'';
+  const run=()=>{const t0=performance.now(),dur=1400;const tick=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=(end*e).toFixed(dec)+suf;if(k<1)requestAnimationFrame(tick)};requestAnimationFrame(tick)};
+  const box=el.closest('.stat');
+  if(box.classList.contains('rv-wait'))box.addEventListener('revealed',run,{once:true});else setTimeout(run,900);
+});
+/* Hero showreel: crossfade through landscape previews inside the thumbnail */
+(()=>{
+  if(reduce)return;
+  const th=document.querySelector('.thumb'),vids=[...th.querySelectorAll('.reel')],bar=th.querySelector('.t-prog i'),live=document.getElementById('t-live');
+  const list=WORKS.filter(w=>w.land&&w.preview&&(w.cat==='Brand films'||w.cat==='Podcasts'||w.cat==='Events'));
+  if(!list.length)return;
+  let n=0,cur=0;
+  const play=()=>{
+    const w=list[n%list.length],v=vids[cur];
+    v.src='w/'+w.preview;v.currentTime=0;
+    v.play().then(()=>{vids.forEach(x=>x.classList.toggle('on',x===v));th.classList.add('live');live.textContent='Now playing · '+w.title}).catch(()=>{});
+    const t0=performance.now(),dur=4200;
+    const step=t=>{const k=Math.min(1,(t-t0)/dur);bar.style.width=(k*100)+'%';if(k<1)requestAnimationFrame(step);else{n++;cur^=1;play()}};
+    requestAnimationFrame(step);
+  };
+  setTimeout(play,1600);
+})();
+/* WhatsApp: keep the Send link's message in step with the form */
+(()=>{
+  const f=document.getElementById('wa-form'),send=document.getElementById('wa-send');
+  const v=id=>document.getElementById(id).value.trim();
+  const build=()=>{
+    const name=v('wa-name'),co=v('wa-company'),topic=v('wa-topic'),msg=v('wa-msg');
+    let t='Hi Vignesh, I saw your portfolio.';
+    if(name)t+=`\nI'm ${name}${co?' from '+co:''}.`;
+    t+=`\nI'm getting in touch about: ${topic}.`;
+    if(msg)t+=`\n\n${msg}`;
+    send.href='https://wa.me/918792035603?text='+encodeURIComponent(t);
+  };
+  f.addEventListener('input',build);f.addEventListener('change',build);
+  f.addEventListener('submit',e=>{e.preventDefault();send.click()});
+  build();
+})();
+/* Logos: drop official logo files into logos/ (e.g. logos/premiere-pro.svg or .png) and they replace the letter tiles */
+document.querySelectorAll('.app[data-logo]').forEach(app=>{
+  const i=app.querySelector('i'),slug=app.dataset.logo,exts=['svg','png'];
+  const tryExt=k=>{if(k>=exts.length)return;const img=new Image();img.alt='';img.width=40;img.height=40;
+    img.onload=()=>{i.replaceWith(img);img.className='logo'};img.onerror=()=>tryExt(k+1);img.src=`logos/${slug}.${exts[k]}`};
+  tryExt(0);
+});
+/* Header shadow once the page scrolls */
+const hdr=document.querySelector('header');addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const t=document.getElementById(b.dataset.copy);
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+  const sel=()=>{const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected'};
+  try{navigator.clipboard.writeText(t.textContent).then(done,sel)}catch(e){sel()}
+}));
+</script>
+
+</body>
+</html>
