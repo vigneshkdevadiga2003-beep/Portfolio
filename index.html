@@ -26,6 +26,7 @@
   --rec:#E0313A;
   --wa:#25D366;      /* WhatsApp green */
   --pink:#D9307E;--sky:#1A7FD6;--lime:#5E9E12;
+  --mono-filter:none;
   --on-clip:#FFFFFF;
   --display:"Anton","Impact","Arial Narrow Bold",sans-serif;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -35,12 +36,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0F1120;--surface:#181B2E;--ink:#ECEEF7;--muted:#9AA0BA;--line:#2A2E47;
   --mark:#FFD23F;--mark-ink:#15172C;--clip-a:#7466F0;--clip-b:#14A8A3;--clip-c:#E2621F;--rec:#FF4D55;--on-clip:#FFFFFF;
-  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;
+  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;--mono-filter:invert(1);
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0F1120;--surface:#181B2E;--ink:#ECEEF7;--muted:#9AA0BA;--line:#2A2E47;
   --mark:#FFD23F;--mark-ink:#15172C;--clip-a:#7466F0;--clip-b:#14A8A3;--clip-c:#E2621F;--rec:#FF4D55;--on-clip:#FFFFFF;
-  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;
+  --pink:#F0569B;--sky:#4AA3F0;--lime:#8BCB3A;--mono-filter:invert(1);
   color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -251,7 +252,9 @@ header.scrolled{box-shadow:0 8px 24px -18px rgba(21,23,44,.5)}
 /* skills */
 .kit{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:clamp(24px,4vw,48px)}
 .kit .apps{grid-template-columns:repeat(2,1fr)}
-.app img.logo{width:40px;height:40px;object-fit:contain;border-radius:8px}
+.app .lw{flex:none;width:40px;height:40px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 12%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 35%,var(--line))}
+.app .lw img{width:28px;height:28px;object-fit:contain;display:block}
+.app .lw img.mono{filter:var(--mono-filter)}
 .ai-col .app{background:color-mix(in srgb,var(--c) 7%,var(--surface))}
 .kit > div:first-child .app:last-child{grid-column:1/-1;flex-direction:row;align-items:center}
 @media (min-width:861px) and (max-width:1100px){.kit{grid-template-columns:1fr 1fr}.kit > :last-child{grid-column:1/-1}}
@@ -739,10 +742,11 @@ document.querySelectorAll('[data-count]').forEach(el=>{
   build();
 })();
 /* Logos: drop official logo files into logos/ (e.g. logos/premiere-pro.svg or .png) and they replace the letter tiles */
+const MONO=new Set(['chatgpt','higgsfield','elevenlabs','kling']);
 document.querySelectorAll('.app[data-logo]').forEach(app=>{
-  const i=app.querySelector('i'),slug=app.dataset.logo,exts=['svg','png'];
+  const i=app.querySelector('i'),slug=app.dataset.logo,exts=['png','svg'];
   const tryExt=k=>{if(k>=exts.length)return;const img=new Image();img.alt='';img.width=40;img.height=40;
-    img.onload=()=>{i.replaceWith(img);img.className='logo'};img.onerror=()=>tryExt(k+1);img.src=`logos/${slug}.${exts[k]}`};
+    img.onload=()=>{const lw=document.createElement('span');lw.className='lw';lw.style.cssText=i.getAttribute('style')||'';if(MONO.has(slug))img.className='mono';lw.append(img);i.replaceWith(lw)};img.onerror=()=>tryExt(k+1);img.src=`logos/${slug}.${exts[k]}`};
   tryExt(0);
 });
 /* Header shadow once the page scrolls */
